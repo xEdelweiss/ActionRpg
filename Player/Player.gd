@@ -1,12 +1,11 @@
 extends CharacterBody2D
 
 
-const ACCELERATION = 700.0
-const MAX_SPEED = 120.0
-const FRICTION = 1000.0
-const JUMP_VELOCITY = -40000.0
-
-const ROLL_SPEED = MAX_SPEED * 1
+@export var ACCELERATION = 700.0
+@export var MAX_SPEED = 120.0
+@export var FRICTION = 1000.0
+@export var JUMP_VELOCITY = -40000.0
+@export var ROLL_SPEED = 100.0
 
 enum {
 	MOVE,

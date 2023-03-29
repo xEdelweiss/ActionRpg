@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://beie4rfhpwxkc" path="res://World/bush.tscn" id="2_2dgfd"]
 [ext_resource type="Texture2D" uid="uid://dxp4n6trssmx7" path="res://World/DirtTileset.png" id="2_dddhp"]
-[ext_resource type="PackedScene" uid="uid://cuuwdqpohcst5" path="res://Player/player.tscn" id="2_m0ofc"]
+[ext_resource type="PackedScene" uid="uid://d1ofxgngsjpo8" path="res://Player/player.tscn" id="2_m0ofc"]
 [ext_resource type="Texture2D" uid="uid://djfgco2pk5v60" path="res://World/CliffTileset.png" id="3_m1wsm"]
 [ext_resource type="Texture2D" uid="uid://bfjtuk7dxcl4g" path="res://World/GrassBackground.png" id="3_mda52"]
 [ext_resource type="PackedScene" uid="uid://cyk52vpeejsa4" path="res://World/tree.tscn" id="5_6rpl5"]
@@ -865,7 +865,7 @@ y_sort_enabled = true
 position = Vector2(112, 88)
 
 [node name="Bat" parent="YSort" instance=ExtResource("8_ya4pa")]
-position = Vector2(88, 96)
+position = Vector2(136, 40)
 
 [node name="Bat2" parent="YSort" instance=ExtResource("8_ya4pa")]
 position = Vector2(48, 168)
@@ -955,7 +955,7 @@ position = Vector2(240, 128)
 y_sort_enabled = true
 
 [node name="Tree" parent="YSort/Trees" instance=ExtResource("5_6rpl5")]
-position = Vector2(104, 56)
+position = Vector2(88, 40)
 
 [node name="Tree2" parent="YSort/Trees" instance=ExtResource("5_6rpl5")]
 position = Vector2(16, 168)

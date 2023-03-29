@@ -1,6 +1,6 @@
-[gd_scene load_steps=54 format=3 uid="uid://cuuwdqpohcst5"]
+[gd_scene load_steps=54 format=3 uid="uid://d1ofxgngsjpo8"]
 
-[ext_resource type="Script" path="res://Player/Player.gd" id="1_jbqui"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_fxata"]
 [ext_resource type="Texture2D" uid="uid://dxvrjfncrqn3v" path="res://Player/Player.png" id="2_e3b48"]
 [ext_resource type="PackedScene" uid="uid://day7ftg712c61" path="res://Overlap/hitbox.tscn" id="3_1ao7c"]
 [ext_resource type="Script" path="res://Player/sword_hitbox.gd" id="4_jjxbv"]
@@ -681,7 +681,7 @@ height = 32.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
-script = ExtResource("1_jbqui")
+script = ExtResource("1_fxata")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1, -9)
