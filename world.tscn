@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dkeobr7f8pt04"]
+[gd_scene load_steps=13 format=3 uid="uid://dkeobr7f8pt04"]
 
 [ext_resource type="PackedScene" uid="uid://beie4rfhpwxkc" path="res://World/bush.tscn" id="2_2dgfd"]
 [ext_resource type="Texture2D" uid="uid://dxp4n6trssmx7" path="res://World/DirtTileset.png" id="2_dddhp"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bfjtuk7dxcl4g" path="res://World/GrassBackground.png" id="3_mda52"]
 [ext_resource type="PackedScene" uid="uid://cyk52vpeejsa4" path="res://World/tree.tscn" id="5_6rpl5"]
 [ext_resource type="PackedScene" uid="uid://bhnvsltcsq5ne" path="res://World/grass.tscn" id="7_8ran3"]
+[ext_resource type="PackedScene" uid="uid://cbinvo1x2d03k" path="res://Enemies/bat.tscn" id="8_ya4pa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uu4il"]
 texture = ExtResource("2_dddhp")
@@ -863,14 +864,14 @@ y_sort_enabled = true
 [node name="Player" parent="YSort" instance=ExtResource("2_m0ofc")]
 position = Vector2(112, 88)
 
-[node name="Tree" parent="YSort" instance=ExtResource("5_6rpl5")]
-position = Vector2(104, 56)
+[node name="Bat" parent="YSort" instance=ExtResource("8_ya4pa")]
+position = Vector2(88, 96)
 
-[node name="Tree2" parent="YSort" instance=ExtResource("5_6rpl5")]
-position = Vector2(16, 168)
+[node name="Bat2" parent="YSort" instance=ExtResource("8_ya4pa")]
+position = Vector2(48, 168)
 
-[node name="Tree3" parent="YSort" instance=ExtResource("5_6rpl5")]
-position = Vector2(288, 96)
+[node name="Bat3" parent="YSort" instance=ExtResource("8_ya4pa")]
+position = Vector2(240, 88)
 
 [node name="Bushes" type="Node2D" parent="YSort"]
 y_sort_enabled = true
@@ -949,3 +950,15 @@ position = Vector2(240, 144)
 
 [node name="Grass9" parent="YSort/Grass" instance=ExtResource("7_8ran3")]
 position = Vector2(240, 128)
+
+[node name="Trees" type="Node2D" parent="YSort"]
+y_sort_enabled = true
+
+[node name="Tree" parent="YSort/Trees" instance=ExtResource("5_6rpl5")]
+position = Vector2(104, 56)
+
+[node name="Tree2" parent="YSort/Trees" instance=ExtResource("5_6rpl5")]
+position = Vector2(16, 168)
+
+[node name="Tree3" parent="YSort/Trees" instance=ExtResource("5_6rpl5")]
+position = Vector2(288, 96)
