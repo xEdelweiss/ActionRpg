@@ -6,6 +6,8 @@ const MAX_SPEED = 120.0
 const FRICTION = 1000.0
 const JUMP_VELOCITY = -40000.0
 
+const ROLL_SPEED = MAX_SPEED * 1
+
 enum {
 	MOVE,
 	ROLL,
@@ -13,6 +15,7 @@ enum {
 }
 
 var state = MOVE
+var roll_vector = Vector2.LEFT
 
 @onready var animation_player = $AnimationPlayer
 @onready var animation_tree = $AnimationTree
@@ -34,6 +37,7 @@ func move_state(delta):
 	input_vector = input_vector.normalized()
 	
 	if input_vector != Vector2.ZERO:
+		roll_vector = input_vector
 		update_direction(input_vector)
 		
 		animation_state.travel("run")
@@ -46,6 +50,9 @@ func move_state(delta):
 	
 	if Input.is_action_just_pressed("attack"):
 		state = ATTACK
+		
+	if Input.is_action_just_pressed("roll"):
+		state = ROLL
 
 func attack_state(delta):
 	# velocity = Vector2.ZERO # this should fix slide on attack, but I do not have this bug
@@ -55,9 +62,15 @@ func attack_animation_finished():
 	state = MOVE
 	
 func roll_state(delta):
-	pass
+	velocity = roll_vector * ROLL_SPEED
+	animation_state.travel("roll")
+	move_and_slide()
+	
+func roll_animation_finished():
+	state = MOVE
 	
 func update_direction(input_vector):
 	animation_tree.set("parameters/idle/blend_position", input_vector)
 	animation_tree.set("parameters/run/blend_position", input_vector)
 	animation_tree.set("parameters/attack/blend_position", input_vector)
+	animation_tree.set("parameters/roll/blend_position", input_vector)
