@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cbinvo1x2d03k"]
+[gd_scene load_steps=20 format=3 uid="uid://cbinvo1x2d03k"]
 
 [ext_resource type="Texture2D" uid="uid://c2hkgvvopme1u" path="res://Shadows/SmallShadow.png" id="1_l6sua"]
 [ext_resource type="Script" path="res://Enemies/bat.gd" id="1_rmo1q"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://5h22h1hmt6k5" path="res://stats.tscn" id="5_mx1j5"]
 [ext_resource type="PackedScene" uid="uid://b2sbfj68lkble" path="res://Enemies/player_detection_zone.tscn" id="6_2fpyw"]
 [ext_resource type="PackedScene" uid="uid://day7ftg712c61" path="res://Overlap/hitbox.tscn" id="7_3m0g7"]
+[ext_resource type="PackedScene" uid="uid://bqso25y72hxea" path="res://Overlap/soft_collision.tscn" id="8_c7tk7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qcmcy"]
 atlas = ExtResource("2_ipcdk")
@@ -64,6 +65,9 @@ radius = 71.007
 [sub_resource type="CircleShape2D" id="CircleShape2D_cc5ro"]
 radius = 4.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ic0oa"]
+radius = 6.0
+
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 32
 script = ExtResource("1_rmo1q")
@@ -82,6 +86,7 @@ texture = ExtResource("1_l6sua")
 shape = SubResource("CircleShape2D_x7o1d")
 
 [node name="Hurtbox" parent="." instance=ExtResource("3_1t3wr")]
+visible = false
 collision_layer = 8
 collision_mask = 16
 
@@ -93,12 +98,14 @@ shape = SubResource("CapsuleShape2D_kjaih")
 max_health = 2
 
 [node name="PlayerDetectionZone" parent="." instance=ExtResource("6_2fpyw")]
+visible = false
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
 shape = SubResource("CircleShape2D_5krx1")
 debug_color = Color(1, 0, 0, 0.12549)
 
 [node name="Hitbox" parent="." instance=ExtResource("7_3m0g7")]
+visible = false
 collision_layer = 64
 collision_mask = 4
 
@@ -108,9 +115,15 @@ shape = SubResource("CircleShape2D_cc5ro")
 disabled = false
 debug_color = Color(0.8, 0.419608, 0.129412, 0.419608)
 
+[node name="SoftCollision" parent="." instance=ExtResource("8_c7tk7")]
+
+[node name="CollisionShape2D" parent="SoftCollision" index="0"]
+shape = SubResource("CircleShape2D_ic0oa")
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
 
 [editable path="Hurtbox"]
 [editable path="PlayerDetectionZone"]
 [editable path="Hitbox"]
+[editable path="SoftCollision"]

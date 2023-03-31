@@ -23,6 +23,7 @@ var state = IDLE
 @onready var detection_zone = $PlayerDetectionZone as PlayerDetectionZone
 @onready var detection_zone_area = $PlayerDetectionZone/CollisionShape2D as CollisionShape2D
 @onready var hurtbox = $Hurtbox as Hurtbox
+@onready var soft_collision = $SoftCollision as SoftCollision
 
 func _ready():
 	print(str("health: ", stats.health))
@@ -50,6 +51,9 @@ func _physics_process(delta):
 			else:
 				state = IDLE
 			sprite.flip_h = velocity.x < 0
+		
+	if soft_collision.is_colliding():
+		velocity += soft_collision.get_push_vector() * delta * 400
 		
 	move_and_slide()
 		
