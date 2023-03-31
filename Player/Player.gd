@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+const player_hurt_scene = preload("res://Player/player_hurt_sound.tscn")
 
 @export var ACCELERATION = 700.0
 @export var MAX_SPEED = 120.0
@@ -88,3 +89,5 @@ func _on_hurtbox_area_entered(area):
 	stats.health -= 1
 	hurtbox.start_invincibility(1.5)
 	hurtbox.create_hit_effect()
+	var player_hurt = player_hurt_scene.instantiate()
+	get_tree().current_scene.add_child(player_hurt)
