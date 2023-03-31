@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhnvsltcsq5ne"]
+[gd_scene load_steps=6 format=3 uid="uid://bhnvsltcsq5ne"]
 
 [ext_resource type="Texture2D" uid="uid://kgr7svfbckqk" path="res://World/Grass.png" id="1_jq44m"]
 [ext_resource type="Script" path="res://World/grass.gd" id="1_vrgf4"]
+[ext_resource type="Texture2D" uid="uid://dx3q7r6go3rkt" path="res://Shadows/MediumShadow.png" id="2_7ub4m"]
 [ext_resource type="PackedScene" uid="uid://ba88kif7hl8db" path="res://Overlap/hurtbox.tscn" id="3_his7k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ijku"]
@@ -9,6 +10,10 @@ size = Vector2(14, 14)
 
 [node name="Grass" type="Node2D"]
 script = ExtResource("1_vrgf4")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(8, 12)
+texture = ExtResource("2_7ub4m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_jq44m")
