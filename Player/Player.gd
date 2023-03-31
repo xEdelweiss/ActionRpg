@@ -7,6 +7,7 @@ const player_hurt_scene = preload("res://Player/player_hurt_sound.tscn")
 @export var FRICTION = 1000.0
 @export var JUMP_VELOCITY = -40000.0
 @export var ROLL_SPEED = 100.0
+const INVINCIBLE_AFTER_HIT_SEC = 1.5
 
 enum {
 	MOVE,
@@ -23,6 +24,7 @@ var roll_vector = Vector2.DOWN
 @onready var animation_state = animation_tree.get("parameters/playback") as AnimationNodeStateMachinePlayback
 @onready var sword_hitbox = $HitboxPivot/SwordHitbox
 @onready var hurtbox = $Hurtbox as Hurtbox
+@onready var blink_animation_player = $BlinkAnimationPlayer
 
 func _ready():
 	stats.connect("no_health", self.queue_free)
@@ -32,8 +34,8 @@ func _ready():
 func _physics_process(delta):
 	match state:
 		MOVE: move_state(delta)
-		ATTACK: attack_state(delta)
-		ROLL: roll_state(delta)
+		ATTACK: attack_state()
+		ROLL: roll_state()
 	
 func move_state(delta):
 	var input_vector = Vector2.ZERO
@@ -60,14 +62,14 @@ func move_state(delta):
 		hurtbox.start_invincibility()
 		
 
-func attack_state(delta):
+func attack_state():
 	# velocity = Vector2.ZERO # this should fix slide on attack, but I do not have this bug
 	animation_state.travel("attack")
 	
 func attack_animation_finished():
 	state = MOVE
 	
-func roll_state(delta):
+func roll_state():
 	velocity = roll_vector * ROLL_SPEED
 	animation_state.travel("roll")
 	move_and_slide()
@@ -86,8 +88,16 @@ func update_direction(input_vector):
 	animation_tree.set("parameters/roll/blend_position", input_vector)
 
 func _on_hurtbox_area_entered(area):
-	stats.health -= 1
-	hurtbox.start_invincibility(1.5)
+	stats.health -= area.damage
+	hurtbox.start_invincibility(INVINCIBLE_AFTER_HIT_SEC)
 	hurtbox.create_hit_effect()
 	var player_hurt = player_hurt_scene.instantiate()
 	get_tree().current_scene.add_child(player_hurt)
+
+func _on_hurtbox_invincibility_started():
+	if (state == ROLL):
+		return
+	blink_animation_player.play("start")
+
+func _on_hurtbox_invincibility_ended():
+	blink_animation_player.play("stop")

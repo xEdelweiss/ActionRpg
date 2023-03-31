@@ -2,7 +2,7 @@ extends Node2D
 
 const grass_effect_scene: PackedScene = preload("res://Effects/grass_effect.tscn")
 
-func _on_hurtbox_area_entered(area):
+func _on_hurtbox_area_entered(_area):
 	create_grass_effect()
 	queue_free()
 

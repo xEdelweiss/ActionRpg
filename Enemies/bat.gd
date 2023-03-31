@@ -27,12 +27,12 @@ var state = IDLE
 @onready var hurtbox = $Hurtbox as Hurtbox
 @onready var soft_collision = $SoftCollision as SoftCollision
 @onready var wander_controller = $WanderController as WanderController
+@onready var animation_player = $AnimationPlayer
 
 func _ready():
 	state = pick_random_state([WANDER, IDLE])
 
 func _physics_process(delta):
-	var previous_velocity = velocity
 	if knockback != Vector2.ZERO:
 		knockback = knockback.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
 		velocity = knockback
@@ -87,9 +87,16 @@ func _on_hurtbox_area_entered(area):
 		knockback = area.knockback_vector * KNOCKBACK_FORCE
 		(stats as Stats).health -= area.damage
 		hurtbox.create_hit_effect()
+		hurtbox.start_invincibility(0.4)
 
 func _on_stats_no_health():
 	queue_free()
 	var enemy_death_effect = enemy_death_effect_scene.instantiate()
 	get_parent().add_child(enemy_death_effect)
 	enemy_death_effect.global_position = global_position
+
+func _on_hurtbox_invincibility_started():
+	animation_player.play("start")
+
+func _on_hurtbox_invincibility_ended():
+	animation_player.play("stop")
