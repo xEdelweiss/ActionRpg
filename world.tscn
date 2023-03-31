@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dkeobr7f8pt04"]
+[gd_scene load_steps=15 format=3 uid="uid://dkeobr7f8pt04"]
 
 [ext_resource type="PackedScene" uid="uid://beie4rfhpwxkc" path="res://World/bush.tscn" id="2_2dgfd"]
 [ext_resource type="Texture2D" uid="uid://dxp4n6trssmx7" path="res://World/DirtTileset.png" id="2_dddhp"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bhnvsltcsq5ne" path="res://World/grass.tscn" id="7_8ran3"]
 [ext_resource type="PackedScene" uid="uid://cbinvo1x2d03k" path="res://Enemies/bat.tscn" id="8_ya4pa"]
 [ext_resource type="PackedScene" uid="uid://cm2l13453455i" path="res://UI/health_ui.tscn" id="9_xtgln"]
+[ext_resource type="AudioStream" uid="uid://dsom0047yuxfn" path="res://Music and Sounds/Music.mp3" id="10_ax7st"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uu4il"]
 texture = ExtResource("2_dddhp")
@@ -1275,3 +1276,8 @@ position = Vector2(288, 96)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HealthUI" parent="CanvasLayer" instance=ExtResource("9_xtgln")]
+
+[node name="MusicAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_ax7st")
+volume_db = -15.0
+autoplay = true
