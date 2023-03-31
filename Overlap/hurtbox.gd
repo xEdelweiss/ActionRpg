@@ -17,9 +17,13 @@ var invincible = false:
 		else:
 			emit_signal("invincibility_ended")
 
-func start_invincibility(duration_sec):
+func start_invincibility(duration_sec = null):
 	invincible = true
-	timer.start(duration_sec)
+	if (duration_sec != null):
+		timer.start(duration_sec)
+
+func stop_invincibility():
+	invincible = false
 
 func create_hit_effect():
 	var effect = hit_effect_scene.instantiate()

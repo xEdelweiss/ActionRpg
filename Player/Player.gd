@@ -56,6 +56,8 @@ func move_state(delta):
 		
 	if Input.is_action_just_pressed("roll"):
 		state = ROLL
+		hurtbox.start_invincibility()
+		
 
 func attack_state(delta):
 	# velocity = Vector2.ZERO # this should fix slide on attack, but I do not have this bug
@@ -71,6 +73,7 @@ func roll_state(delta):
 	
 func roll_animation_finished():
 	state = MOVE
+	hurtbox.stop_invincibility()
 	
 func update_direction(input_vector):
 	roll_vector = input_vector
