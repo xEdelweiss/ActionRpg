@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
-const ACCELERATION = 1800.0
-const MAX_SPEED = 150
-const FRICTION = 20.0
+const ACCELERATION = 150.0
+const MAX_SPEED = 50
+const FRICTION = 500.0
+
 const KNOCKBACK_FORCE = 200.0
 const KNOCKBACK_FRICTION = 500.0
 
@@ -21,6 +22,7 @@ var state = IDLE
 @onready var sprite = $AnimatedSprite2D
 @onready var detection_zone = $PlayerDetectionZone as PlayerDetectionZone
 @onready var detection_zone_area = $PlayerDetectionZone/CollisionShape2D as CollisionShape2D
+@onready var hurtbox = $Hurtbox as Hurtbox
 
 func _ready():
 	print(str("health: ", stats.health))
@@ -28,8 +30,9 @@ func _ready():
 
 func _physics_process(delta):
 	var previous_velocity = velocity
-	knockback = knockback.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
-	velocity = knockback
+	if knockback != Vector2.ZERO:
+		knockback = knockback.move_toward(Vector2.ZERO, KNOCKBACK_FRICTION * delta)
+		velocity = knockback
 	
 	match state:
 		IDLE: 
@@ -42,7 +45,7 @@ func _physics_process(delta):
 			detection_zone_area.debug_color = Color(1, 0, 0, 0.4)
 			var player = detection_zone.player as CharacterBody2D
 			if player != null:
-				var direction_to_player = global_position.direction_to(player.global_position)				
+				var direction_to_player = global_position.direction_to(player.global_position)
 				velocity = velocity.move_toward(direction_to_player * MAX_SPEED, ACCELERATION * delta)
 			else:
 				state = IDLE
@@ -58,6 +61,7 @@ func _on_hurtbox_area_entered(area):
 	if (area is SwordHitbox):
 		knockback = area.knockback_vector * KNOCKBACK_FORCE
 		(stats as Stats).health -= area.damage
+		hurtbox.create_hit_effect()
 
 func _on_stats_no_health():
 	queue_free()

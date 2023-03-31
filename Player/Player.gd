@@ -14,14 +14,17 @@ enum {
 }
 
 var state = MOVE
+var stats = PlayerStats as Stats
 var roll_vector = Vector2.DOWN
 
 @onready var animation_player = $AnimationPlayer
 @onready var animation_tree = $AnimationTree
 @onready var animation_state = animation_tree.get("parameters/playback") as AnimationNodeStateMachinePlayback
 @onready var sword_hitbox = $HitboxPivot/SwordHitbox
+@onready var hurtbox = $Hurtbox as Hurtbox
 
 func _ready():
+	stats.connect("no_health", self.queue_free)
 	animation_tree.active = true
 	sword_hitbox.knockback_vector = roll_vector
 
@@ -77,3 +80,8 @@ func update_direction(input_vector):
 	animation_tree.set("parameters/run/blend_position", input_vector)
 	animation_tree.set("parameters/attack/blend_position", input_vector)
 	animation_tree.set("parameters/roll/blend_position", input_vector)
+
+func _on_hurtbox_area_entered(area):
+	stats.health -= 1
+	hurtbox.start_invincibility(1.5)
+	hurtbox.create_hit_effect()

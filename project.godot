@@ -15,6 +15,10 @@ run/main_scene="res://world.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PlayerStats="*res://Player/player_stats.tscn"
+
 [display]
 
 window/size/viewport_width=320
@@ -69,6 +73,7 @@ roll={
 2d_physics/layer_4="enemy_hurtbox"
 2d_physics/layer_5="player_weapon"
 2d_physics/layer_6="enemy"
+2d_physics/layer_7="enemy_weapon"
 
 [rendering]
 
